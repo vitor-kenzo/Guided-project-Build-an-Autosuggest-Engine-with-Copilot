@@ -202,10 +202,18 @@ void GetPrefixInput()
 void PrintTrie(Trie trie)
 {
     Console.WriteLine("The dictionary contains the following words:");
+
     List<string> words = trie.GetAllWords();
-    foreach (string word in words)
+    int columnWidth = (int)Math.Ceiling((double)words.Count / 5);
+
+    for (int i = 0; i < words.Count; i++)
     {
-        Console.Write($"{word}, ");
+        Console.Write($"{words[i],-15}");
+
+        if ((i + 1) % columnWidth == 0)
+        {
+            Console.WriteLine();
+        }
     }
     Console.WriteLine();
 }
