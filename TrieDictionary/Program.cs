@@ -14,15 +14,20 @@ Trie dictionary = InitializeTrie(words);
 // DeleteWord();
 // GetSpellingSuggestions();
 
+// This method initializes a Trie data structure with the given array of words
 Trie InitializeTrie(string[] words)
 {
+    // Create a new instance of the Trie class
     Trie trie = new Trie();
 
+    // Iterate through each word in the array
     foreach (string word in words)
     {
+        // Insert the word into the Trie
         trie.Insert(word);
     }
 
+    // Return the initialized Trie
     return trie;
 }
 

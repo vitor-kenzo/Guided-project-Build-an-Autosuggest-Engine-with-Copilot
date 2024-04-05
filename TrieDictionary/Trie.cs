@@ -30,22 +30,33 @@ public class Trie
     public bool Insert(string word)
     {
         TrieNode current = root;
+        // For each character in the word
         foreach (char c in word)
         {
+            // If the current node doesn't have the character as a child
             if (!current.HasChild(c))
             {
+                // Add a new node for the current character
                 current.Children[c] = new TrieNode(c);
             }
+            // Move to the child node with the current character
             current = current.Children[c];
         }
         if (current.IsEndOfWord)
         {
+            // If word already exists in the trie
             return false;
         }
+        // Mark the end of the word
         current.IsEndOfWord = true;
         return true;
     }
     
+    /// <summary>
+    /// Retrieves a list of suggested words based on the given prefix.
+    /// </summary>
+    /// <param name="prefix">The prefix to search for.</param>
+    /// <returns>A list of suggested words.</returns>
     public List<string> AutoSuggest(string prefix)
     {
         TrieNode currentNode = root;
