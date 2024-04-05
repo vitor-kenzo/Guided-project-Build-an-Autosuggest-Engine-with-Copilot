@@ -27,6 +27,26 @@ public class Trie
         root = new TrieNode();
     }
 
+    // Search for a word in the trie
+    public bool Search(string word)
+    {
+        TrieNode current = root;
+        // For each character in the word
+        foreach (char c in word)
+        {
+            // If the current node doesn't have the character as a child
+            if (!current.HasChild(c))
+            {
+                // The word doesn't exist in the trie
+                return false;
+            }
+            // Move to the child node with the current character
+            current = current.Children[c];
+        }
+        // If the current node is the end of a word
+        return current.IsEndOfWord;
+    }
+
     public bool Insert(string word)
     {
         TrieNode current = root;
@@ -73,7 +93,23 @@ public class Trie
 
     private List<string> GetAllWordsWithPrefix(TrieNode root, string prefix)
     {
-        return null;
+        List<string> words = new List<string>();
+
+        if (root == null)
+        {
+            return words;
+        }
+
+        if (root.IsEndOfWord)
+        {
+            words.Add(prefix);
+        }
+        
+        foreach (var child in root.Children)
+        {
+            words.AddRange(GetAllWordsWithPrefix(child.Value, prefix + child.Key));
+        }
+        return words;
     }
 
     public List<string> GetAllWords()
